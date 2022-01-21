@@ -6,6 +6,80 @@
   <meta name="author" content="Puji Mei Indriana Sihombing 2072050">
   <title>POKEMON API</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  <style>
+        #judul {
+            font : 2em;
+            color: purple;
+            align: center;
+        }
+        #listpokemon {
+            background-color: rgb(241, 88, 208);
+            width: 15%;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            text-align: center;
+        }
+        #image {
+            width: 200px;
+            height: 200px;
+        }
+        #boximg {
+            position: fixed;
+            z-index: 2;
+            height: 30%;
+            width: 20%;
+            top: 10%;
+            right: 35%;
+        }
+        #boxname {
+            border: 2px solid black;
+            width: 25%;
+            height: 20%;
+            position: fixed;
+            z-index: 1;
+            top: 45%;
+            left: 5%;
+            text-align: center;
+            padding-top: 40px;
+            font-size: 4em;
+        }
+        #type {
+            width:24%;
+            height:10%;
+            position:absolute;
+            top:55%;
+            right:32%;
+            margin:0;
+            text-align: center;
+            font-size:2em;
+        }
+        #type1, #type2 {
+            width:45%;
+            top: 35px;
+            right: 55%;
+            display: inline-block;
+        }
+        #color {
+            background-color: pink;
+            border:2px solid black;
+            position:absolute;
+            display: inline-block;
+            width:15%;
+            height:10%;
+            top:50%;
+            right:8%;
+            text-align: center;
+            padding-top: 20px;
+            font-size:2em;
+        }
+        #hr {
+            width: 100%;
+            opacity: 80%;
+            border: 1px solid black;
+        }
+
+    </style>
 </head>
 <body>
   <select name="pilihan" id="pilihan" value="pilih pokemon">
@@ -56,5 +130,16 @@
             });
         </script>
     </select> <br>
+    <hr id="hr">
+    <hr id="hr">
+    <div id="box"></div>
+    <div id="boximg"></div>
+    <div id="type">
+        <div id="type1"></div>
+    </div>
+    <div id="color"></div>
+    </div>
+    <script>
+    </script>
 </body>
 </html>
