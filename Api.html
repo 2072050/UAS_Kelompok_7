@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="Puji Mei Indriana Sihombing 2072050">
+    <title>POKEMON API</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <style>
+        #body {
+            background-color: pink;
+            opacity: 0.9;
+            animation-name: animasi;
+            animation-duration: 4s;
+        }
+        @keyframes animasi {
+            0%   {background-color: pink;}
+            25%  {background-color: hotpink;}
+            50%  {background-color: magenta}
+            100% {background-color: palevioletred;}
+        }
+        #judul {
+            font : 8em;
+            text-align: center;
+            text-shadow: 12px 12px black;
+        }
+        #listpokemon {
+            background-color: rgb(241, 88, 208);
+            width: 15%;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            text-align: center;
+            animation-name: animlist;
+            animation-duration: 5s;
+        }
+        @keyframes animlist {
+            0%   {background-color: pink;}
+            25%  {background-color: rgb(240, 84, 214);}
+            50%  {background-color: rgb(245, 155, 245)}
+            100% {background-color: rgb(231, 173, 212);}
+        }
+        #image {
+            width: 200px;
+            height: 200px;
+        }
+        #boximg {
+            position: fixed;
+            z-index: 2;
+            height: 30%;
+            width: 20%;
+            top: 10%;
+            right: 35%;
+        }
+        #boxname {
+            border: 2px solid black;
+            width: 25%;
+            height: 20%;
+            position: fixed;
+            z-index: 1;
+            top: 45%;
+            left: 5%;
+            text-align: center;
+            padding-top: 40px;
+            font-size: 4em;
+        }
+        #type {
+            width:24%;
+            height:10%;
+            position:absolute;
+            top:55%;
+            right:32%;
+            margin:0;
+            text-align: center;
+            font-size:2em;
+        }
+        #type1, #type2 {
+            width:45%;
+            top: 35px;
+            right: 55%;
+            display: inline-block;
+        }
+        #color {
+            background-color: pink;
+            border:2px solid black;
+            position:absolute;
+            display: inline-block;
+            width:15%;
+            height:10%;
+            top:50%;
+            right:8%;
+            text-align: center;
+            padding-top: 20px;
+            font-size:2em;
+        }
+        #hr {
+            width: 100%;
+            opacity: 80%;
+            border: 1px solid black;
+        }
+        #bg {
+            background-color: hotpink;
+            background-position: center;
+        }
+    </style>
+</head>
+<body id="body">
+    <div id="judul">WELCOME TO POKEMON WORD</div>
+    <select name="listpokemon" id="listpokemon" value="Daftar Pokemon">
+        <script>
+            $(document).ready(function () {
+                $.getJSON("https://pokeapi.co/api/v2/pokemon/?limit=151", function (isi) {
+                    for (let i = 0; i <= 151; i++) {
+                        let nama = isi.results[i].name;
+                        $("#listpokemon").append("<option>" + nama + "</option>")
+                    }
+                });
+                $("#listpokemon").change(function () {
+                    clearkotak();
+                    let daftar = $("#listpokemon").find('option:selected').index();
+                    let urut = daftar - 1;
+                    console.log(urut);
+                    let r = Math.ceil(Math.random() * 155) + 100;
+                    let g = Math.ceil(Math.random() * 155) + 100;
+                    let b = Math.ceil(Math.random() * 155) + 100;
+                    $("#box").css({ "background-color": "rgb(" + r + "," + g + "," + b + ")" });
+                    $.getJSON("https://pokeapi.co/api/v2/pokemon/?limit=151", function (result) {
+                        let nama = result.results[urut].name;
+                        $("#boxname").html(nama);
+                        let gambar = $.getJSON("https://pokeapi.co/api/v2/pokemon/" + daftar + "/", function (hasil) {
+                            let urlgbr = hasil.sprites.front_default;
+                            $("#boximg").html("<img id='image' src=" + urlgbr + ">");
+                            let h = hasil.height;
+                            let w = hasil.weight;
+                            let linkbarulagi = $.getJSON("https://pokeapi.co/api/v2/pokemon-species/" + daftar + "/", function (warna) {
+                                let tipewarna = warna.color.name;
+                                $("#color").html("color =" + " " + tipewarna);
+                            });
+                            let jenis = hasil.types[0].type.name;
+                            $("#type1").html(jenis);
+                            $("#type1").css({ "border": "2px solid black" })
+                            let jenis2 = hasil.types[1].type.name;
+                            if (jenis2 != null) {
+                                $("#type").append("<div id=type2>" + jenis2 + "</div>");
+                                $("#type2").css({ "border": "2px solid black" })
+                            };
+                        });
+                    });
+                });
+                function clearkotak() {
+                    $("#type1").html(" ");
+                    $("#type2").remove();
+                };
+            });
+        </script>
+    </select><br>
+    <hr id="hr">
+    <hr id="hr">
+    <div id="boxname"></div>
+    <div id="boximg"></div>
+    <div id="type">
+        <div id="type1"></div>
+    </div>
+    <div id="color"></div>
+    </div>
+    <script>
+    </script>
+</body>
+</html>
